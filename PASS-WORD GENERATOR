@@ -1,0 +1,27 @@
+import secrets
+import string
+
+def generate_password(length=12):
+    characters = string.ascii_letters + string.digits + string.punctuation
+    while True:
+        password = ''.join(secrets.choice(characters) for _ in range(length))
+        if (any(c.islower() for c in password)
+            and any(c.isupper() for c in password)
+            and any(c.isdigit() for c in password)
+            and any(c in string.punctuation for c in password)
+            and not any(c.isspace() for c in password)):
+            return password
+
+def main():
+    try:
+        length = int(input("Enter the desired password length: "))
+        if length < 8:
+            print("Password length should be at least 8 characters.")
+        else:
+            password = generate_password(length)
+            print("Generated Password:", password)
+    except ValueError:
+        print("Invalid input. Please enter a valid number for the password length.")
+
+if __name__ == "__main__":
+    main()
